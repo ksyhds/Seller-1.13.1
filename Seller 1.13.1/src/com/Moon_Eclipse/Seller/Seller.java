@@ -469,6 +469,41 @@ public class Seller extends JavaPlugin implements Listener{
 				}
 				
 			}
+			
+			// 구입 부분을 추가
+			else if(sender.hasPermission("seller.buy"))
+			{
+				if(command.getName().equalsIgnoreCase("사기"))
+				{
+			    	// 사기 플레이어이름 아이템이름 가격 
+			        Player target = Bukkit.getPlayer(args[0]);
+			        String ItemName = args[1];
+			        double price = Double.parseDouble(args[2]);
+
+			        double balance = 0.0D;
+			        try {
+			          getEconomy(); balance = Economy.getMoney(target.getName()); } catch (UserDoesNotExistException e) {
+			          e.printStackTrace();
+			        }
+			        if (balance - price < 0.0D)
+			        {
+			          target.sendMessage("§b[마인아레나]§e 잔액이 부족합니다.");
+			        }
+			        else
+			        {
+			          try {
+			            DecreaseMoney(target, price);
+			          } catch (NoLoanPermittedException e) {
+			            e.printStackTrace();
+			          } catch (UserDoesNotExistException e) {
+			            e.printStackTrace();
+			          }
+			          int amount = Integer.parseInt(args[4]);
+			          ItemDeliver.Send_Item(target, ItemName, amount);
+			        }
+			      
+				}
+			}
 			else
 			{
 				sender.sendMessage("§b[MCMANY]§e 권한이 부족합니다.");
@@ -595,4 +630,7 @@ public class Seller extends JavaPlugin implements Listener{
     	}
     	return hasitem;
     }
+    public void DecreaseMoney(Player p, double price) throws NoLoanPermittedException, UserDoesNotExistException {
+        getEconomy(); Economy.add(p.getName(), -price);
+      }
 }

@@ -3,6 +3,9 @@ main: com.Moon_Eclipse.Seller.Seller
 version: 1.1
 author: Moon_Eclipse
 commands:
+    사기: 
+        description: /사기 아이템이름 가격
+
     팔기:
         description: /팔기 일반 코드 메타 가격 수량
                      /팔기 이름 코드 메타 디스플레이이름 가격 수량
@@ -14,5 +17,8 @@ permissions:
         description: 셀러 플러그인의 모든 권한을 갖습니다.
         default: op
     seller.sell:
-        description: 셀러 플러그인의 기능을 사용할 권한을 갖습니다.
+        description: 셀러 플러그인의 판매 기능을 사용할 권한을 갖습니다.
         default: op
+    seller.buy:
+        description: 셀러 플러그인의 구매 기능을 사용할 권한을 갖습니다.
+        default: true
